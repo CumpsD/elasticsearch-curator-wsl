@@ -57,7 +57,7 @@ logging:
 
 ### Create a file, close.yml that contains all configuration for the action you want to execute
 
-In this case, we want to close all indices that match the `logstash-dev-` pattern and are older than 30 days.
+In this case, we want to close all indices that match the `logstash-dev-` pattern and are older than 5 days.
 
 ```bash
 sudo vim.tiny close.yml
@@ -75,7 +75,7 @@ actions:
   1:
     action: close
     description: >-
-      Close indices older than 30 days (based on index name), for logstash-dev- prefixed indices.
+      Close indices older than 5 days (based on index name), for logstash-dev- prefixed indices.
     options:
       delete_aliases: False
       timeout_override:
@@ -91,7 +91,7 @@ actions:
       direction: older
       timestring: '%Y.%m.%d'
       unit: days
-      unit_count: 30
+      unit_count: 5
       exclude:
 
 ```
@@ -107,12 +107,40 @@ curator --config curator.yml --dry-run close.yml
 Should given the following output:
 
 ```bash
-2018-09-19 15:48:27,978 INFO      Preparing Action ID: 1, "close"
-2018-09-19 15:48:28,114 INFO      Trying Action ID: 1, "close": Close indices older than 30 days (based on index name), for logstash- prefixed indices.
-2018-09-19 15:48:28,801 INFO      DRY-RUN MODE.  No changes will be made.
-2018-09-19 15:48:28,801 INFO      (CLOSED) indices may be shown that may not be acted on by action "close".
-2018-09-19 15:48:28,801 INFO      Action ID: 1, "close" completed.
-2018-09-19 15:48:28,802 INFO      Job completed.
+2018-09-19 16:26:45,589 INFO      Preparing Action ID: 1, "close"
+2018-09-19 16:26:46,026 INFO      Trying Action ID: 1, "close": Close indices older than 30 days (based on index name), for logstash- prefixed indices.
+2018-09-19 16:26:46,450 INFO      DRY-RUN MODE.  No changes will be made.
+2018-09-19 16:26:46,450 INFO      (CLOSED) indices may be shown that may not be acted on by action "close".
+2018-09-19 16:26:46,450 INFO      DRY-RUN: close: logstash-2018.09.01 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,451 INFO      DRY-RUN: close: logstash-2018.09.02 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,451 INFO      DRY-RUN: close: logstash-2018.09.03 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,452 INFO      DRY-RUN: close: logstash-2018.09.04 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,452 INFO      DRY-RUN: close: logstash-2018.09.05 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,452 INFO      DRY-RUN: close: logstash-2018.09.06 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,452 INFO      DRY-RUN: close: logstash-2018.09.07 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,453 INFO      DRY-RUN: close: logstash-2018.09.08 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,453 INFO      DRY-RUN: close: logstash-2018.09.09 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,453 INFO      DRY-RUN: close: logstash-2018.09.10 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,453 INFO      DRY-RUN: close: logstash-2018.09.11 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,453 INFO      DRY-RUN: close: logstash-2018.09.12 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,453 INFO      DRY-RUN: close: logstash-2018.09.13 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,454 INFO      DRY-RUN: close: logstash-2018.09.14 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,454 INFO      DRY-RUN: close: logstash-beta-2018.09.01 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,454 INFO      DRY-RUN: close: logstash-beta-2018.09.02 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,454 INFO      DRY-RUN: close: logstash-beta-2018.09.03 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,454 INFO      DRY-RUN: close: logstash-beta-2018.09.04 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,454 INFO      DRY-RUN: close: logstash-beta-2018.09.05 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,455 INFO      DRY-RUN: close: logstash-beta-2018.09.06 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,455 INFO      DRY-RUN: close: logstash-beta-2018.09.07 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,455 INFO      DRY-RUN: close: logstash-beta-2018.09.08 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,455 INFO      DRY-RUN: close: logstash-beta-2018.09.09 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,456 INFO      DRY-RUN: close: logstash-beta-2018.09.10 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,456 INFO      DRY-RUN: close: logstash-beta-2018.09.11 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,456 INFO      DRY-RUN: close: logstash-beta-2018.09.12 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,456 INFO      DRY-RUN: close: logstash-beta-2018.09.13 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,457 INFO      DRY-RUN: close: logstash-beta-2018.09.14 with arguments: {'delete_aliases': False}
+2018-09-19 16:26:46,457 INFO      Action ID: 1, "close" completed.
+2018-09-19 16:26:46,457 INFO      Job completed.
 ```
 
 More examples can be found here: https://github.com/elastic/curator/tree/master/examples
