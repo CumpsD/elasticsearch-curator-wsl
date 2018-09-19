@@ -57,7 +57,7 @@ logging:
 
 ### Create a file, close.yml that contains all configuration for the action you want to execute
 
-In this case, we want to delete all indices that match the `logstash-dev-` pattern and are older than 30 days.
+In this case, we want to close all indices that match the `logstash-dev-` pattern and are older than 30 days.
 
 ```bash
 sudo vim.tiny close.yml
